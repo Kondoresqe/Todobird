@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Mar  4 14:28:47 2025
+
+@author: kondormint
+"""
+
+
+import sys
+import os
+
+# File to store tasks
+TASKS_FILE = os.path.expanduser("~/.todo_tasks.txt")
+
+def load_tasks():
+    """Load tasks from the file."""
+    if os.path.exists(TASKS_FILE):
+        with open(TASKS_FILE, "r") as file:
+            return file.read().splitlines()
+    return []
+
+def save_tasks(tasks):
+    """Save tasks to the file."""
+    with open(TASKS_FILE, "w") as file:
+        file.write("\n".join(tasks))
+
+def add_task(task):
+    """Add a task to the list."""
+    tasks = load_tasks()
+    tasks.append(task)
+    save_tasks(tasks)
+    print(f"Task '{task}' added!")
+
+def view_tasks():
+    """View all tasks."""
+    tasks = load_tasks()
+    if not tasks:
+        print("No tasks yet!")
+    else:
+        for i, task in enumerate(tasks, 1):
+            print(f"{i}. {task}")
+
+def delete_task(index):
+    """Delete a task by its number."""
+    tasks = load_tasks()
+    if 1 <= index <= len(tasks):
+        removed = tasks.pop(index - 1)
+        save_tasks(tasks)
+        print(f"Task '{removed}' removed!")
+    else:
+        print("Invalid task number!")
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: todo <action> [task]")
+        print("Actions: add, view, delete")
+        return
+
+    action = sys.argv[1].lower()
+
+    if action == "add":
+        if len(sys.argv) < 3:
+            print("Error: Please provide a task to add.")
+        else:
+            task = " ".join(sys.argv[2:])
+            add_task(task)
+    elif action == "view":
+        view_tasks()
+    elif action == "delete":
+        if len(sys.argv) < 3:
+            print("Error: Please provide a task number to delete.")
+        else:
+            try:
+                index = int(sys.argv[2])
+                delete_task(index)
+            except ValueError:
+                print("Error: Task number must be an integer.")
+    else:
+        print(f"Error: Unknown action '{action}'.")
+
+if __name__ == "__main__":
+    main()
