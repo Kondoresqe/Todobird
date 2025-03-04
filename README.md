@@ -1,10 +1,6 @@
 # Kondor
 This Repository holds a simple task tracker that will accept tasks and let you view them.
 
-"mv todo todo.py"
-
-this is mistake on my part and I am currently working towards a fix.
-
 Installation:
 
 Create a file in your home directory ".todo_tasks.txt" This will be hidden, but makes the tasks persist when the terminal is closed/process is ended.
