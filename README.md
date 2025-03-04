@@ -1,2 +1,2 @@
-# kalikondor
-this is a test repository for learning how to use git
+# Kondor
+This Repository holds all of the beginner level projects that Ive learned so far
